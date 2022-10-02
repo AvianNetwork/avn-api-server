@@ -3,6 +3,7 @@ from server.methods.transaction import Transaction
 from server.methods.general import General
 from server.methods.address import Address
 from server.methods.block import Block
+from server.methods.assets import Assets
 from server import stats
 from server import utils
 
@@ -143,6 +144,44 @@ def broadcast():
 def price():
     data = General.price()
     return jsonify(utils.response(data["last"]))
+
+@stats.rest
+@blueprint.route("/listassets", methods=["GET"])
+def list_assets():
+    data = Assets.list_assets()
+
+    if data["error"] is None:
+        result = data["result"]
+        return result
+
+    else:
+        return Response(data["error"]["message"], mimetype="text/plain", status=400)
+
+@stats.rest
+@blueprint.route("/asset", methods=["POST"])
+def get_asset():
+    name = request.values.get("name")
+    data = Assets.get_asset(name)
+
+    if data["error"] is None:
+        result = data["result"]
+        return result
+
+    else:
+        return Response(data["error"]["message"], mimetype="text/plain", status=400)
+
+@stats.rest
+@blueprint.route("/ans", methods=["POST"])
+def get_ans():
+    name = request.values.get("name")
+    data = Assets.get_ans(name)
+
+    if data["error"] is None:
+        result = data["result"]
+        return result
+
+    else:
+        return Response(data["error"]["message"], mimetype="text/plain", status=400)
 
 def init(app):
     app.register_blueprint(blueprint, url_prefix="/")

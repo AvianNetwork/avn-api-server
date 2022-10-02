@@ -333,6 +333,46 @@
 						}
 					]
 				}, {
+					'name': '/listassets',
+					'example': '/listassets',
+					'description': 'This method gets all assets on the Avian network.',
+					'method': 'GET',
+					'id': 'listassets',
+				}, {
+					'name': '/asset',
+					'example': '/asset',
+					'description': 'This method gets asset data.',
+					'method': 'POST',
+					'id': 'asset',
+					'response': {
+						'result': {},
+						'error': null,
+						'id': 'api-server'
+					},
+					'params': [
+						{
+							'title': 'name',
+							'description': 'Asset name'						
+						}
+					]
+				}, {
+					'name': '/ans',
+					'example': '/ans',
+					'description': 'This method gets ANS data for an asset',
+					'method': 'POST',
+					'id': 'ans',
+					'response': {
+						'result': {},
+						'error': null,
+						'id': 'api-server'
+					},
+					'params': [
+						{
+							'title': 'name',
+							'description': 'Asset name'						
+						}
+					]
+				}, {
 					'name': '/broadcast',
 					'example': '/broadcast',
 					'description': 'This method broadcast raw signed transaction to Avian network.',
