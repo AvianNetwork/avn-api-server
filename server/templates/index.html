@@ -333,11 +333,25 @@
 						}
 					]
 				}, {
-					'name': '/listassets',
-					'example': '/listassets',
+					'name': '/listassets/int:amount',
+					'example': '/listassets/10?offset=3',
 					'description': 'This method gets all assets on the Avian network.',
 					'method': 'GET',
+					'base': '/listassets/',
 					'id': 'listassets',
+					'params': [
+						{
+							'title': 'amount',
+							'description': 'Amount',
+							'example': '10',
+							'key': true
+						},
+						{
+							'title': 'offset',
+							'description': 'Offset',
+							'example': 3,
+						}
+					]
 				}, {
 					'name': '/asset',
 					'example': '/asset',

@@ -146,16 +146,15 @@ def price():
     return jsonify(utils.response(data["last"]))
 
 @stats.rest
-@blueprint.route("/listassets", methods=["GET"])
-def list_assets():
-    data = Assets.list_assets()
+@blueprint.route("/listassets/<int:amount>", methods=["GET"])
+def list_assets(amount):
+    offset = request.args.get("offset")
+    offset = int(0 if offset is None else offset)
+
+    data = Assets.list_assets(amount, offset)
 
     if data["error"] is None:
-        result = data["result"]
-        return result
-
-    else:
-        return Response(data["error"]["message"], mimetype="text/plain", status=400)
+        return jsonify(data)
 
 @stats.rest
 @blueprint.route("/asset", methods=["POST"])
@@ -164,11 +163,7 @@ def get_asset():
     data = Assets.get_asset(name)
 
     if data["error"] is None:
-        result = data["result"]
-        return result
-
-    else:
-        return Response(data["error"]["message"], mimetype="text/plain", status=400)
+        return jsonify(data)
 
 @stats.rest
 @blueprint.route("/ans", methods=["POST"])
@@ -177,11 +172,7 @@ def get_ans():
     data = Assets.get_ans(name)
 
     if data["error"] is None:
-        result = data["result"]
-        return result
-
-    else:
-        return Response(data["error"]["message"], mimetype="text/plain", status=400)
+        return jsonify(data)
 
 def init(app):
     app.register_blueprint(blueprint, url_prefix="/")

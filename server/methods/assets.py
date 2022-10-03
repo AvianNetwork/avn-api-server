@@ -5,9 +5,8 @@ import config
 class Assets():
     @classmethod
     @cache.memoize(timeout=config.cache)
-    def list_assets(cls):
-        # TODO: Remove limit of 10 assets without lagging server
-        data = utils.make_request("listassets", ["*", False, 10])
+    def list_assets(cls, amount, offset):
+        data = utils.make_request("listassets", ["*", False, amount, offset])
         return data
 
     @classmethod
