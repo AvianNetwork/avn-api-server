@@ -333,23 +333,30 @@
 						}
 					]
 				}, {
-					'name': '/listassets/int:amount',
-					'example': '/listassets/10?offset=3',
+					'name': '/listassets',
+					'example': '/listassets?verbose=false&count=10&start=0',
 					'description': 'This method gets all assets on the Avian network.',
 					'method': 'GET',
 					'base': '/listassets/',
 					'id': 'listassets',
 					'params': [
 						{
-							'title': 'amount',
-							'description': 'Amount',
-							'example': '10',
-							'key': true
+							'title': 'verbose',
+							'description': 'verbose',
+							'example': false,
+							'default': false
 						},
 						{
-							'title': 'offset',
-							'description': 'Offset',
-							'example': 3,
+							'title': 'count',
+							'description': 'Truncates results to include only the first x found',
+							'example': 10,
+							'default': 10
+						},
+						{
+							'title': 'start',
+							'description': 'Results skip over the first x found, if negative it skips back from the end',
+							'example': -10,
+							'default': -10
 						}
 					]
 				}, {
@@ -361,7 +368,7 @@
 					'response': {
 						'result': {},
 						'error': null,
-						'id': 'api-server'
+						'id': 'avn-api-server'
 					},
 					'params': [
 						{
@@ -378,7 +385,7 @@
 					'response': {
 						'result': {},
 						'error': null,
-						'id': 'api-server'
+						'id': 'avn-api-server'
 					},
 					'params': [
 						{
@@ -395,7 +402,7 @@
 					'response': {
 						'result': '8d0f52a1177c7a954cf4f952532c49c8d55f9437539b544d92f83c14e1929950',
 						'error': null,
-						'id': 'api-server'
+						'id': 'avn-api-server'
 					},
 					'params': [
 						{

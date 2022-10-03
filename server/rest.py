@@ -146,12 +146,13 @@ def price():
     return jsonify(utils.response(data["last"]))
 
 @stats.rest
-@blueprint.route("/listassets/<int:amount>", methods=["GET"])
-def list_assets(amount):
-    offset = request.args.get("offset")
-    offset = int(0 if offset is None else offset)
+@blueprint.route("/listassets", methods=["GET"])
+def list_assets():
+    count = request.args.get("count", default=10, type=int)
+    start = request.args.get("start", default=-10, type=int)
+    verbose = request.args.get("verbose", default=False, type=lambda v: v.lower() == 'true')
 
-    data = Assets.list_assets(amount, offset)
+    data = Assets.list_assets(verbose, count, start)
 
     if data["error"] is None:
         return jsonify(data)
@@ -159,20 +160,18 @@ def list_assets(amount):
 @stats.rest
 @blueprint.route("/asset", methods=["POST"])
 def get_asset():
-    name = request.values.get("name")
+    name = request.values.get("name", default="")
     data = Assets.get_asset(name)
 
-    if data["error"] is None:
-        return jsonify(data)
+    return jsonify(data)
 
 @stats.rest
 @blueprint.route("/ans", methods=["POST"])
 def get_ans():
-    name = request.values.get("name")
+    name = request.values.get("name", default="")
     data = Assets.get_ans(name)
 
-    if data["error"] is None:
-        return jsonify(data)
+    return jsonify(data)
 
 def init(app):
     app.register_blueprint(blueprint, url_prefix="/")
